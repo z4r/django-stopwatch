@@ -7,5 +7,5 @@ install:
 script:
   - python setup.py test
 after_success:
-  - pip install python-coveralls --use-mirrors
+  - pip install -q --use-mirrors python-coveralls
   - coveralls
