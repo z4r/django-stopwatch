@@ -48,4 +48,3 @@ class ImporterTestCase(TestCase):
     @override_settings(STOPWATCH_BACKENDS=('stopwatch.backends.BadBackend',))
     def test_get_backends_badcls(self):
         self.assertRaises(ImproperlyConfigured, get_backends)
-

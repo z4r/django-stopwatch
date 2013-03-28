@@ -2,7 +2,7 @@ import time
 from stopwatch import loader
 
 
-class StatsDStopWatchMiddleware(object):
+class StopWatchMiddleware(object):
     def __init__(self):
         self.keybuilder = loader.get_keybuilder()
         self.backends = loader.get_backends()
