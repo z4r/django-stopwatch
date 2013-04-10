@@ -33,6 +33,20 @@ class StopWatchMiddlewareTestCase(TestCase):
         with mock.patch('time.time') as time_time:
             time_time.return_value = 2
             self.mw.process_response(self.request, self.response)
-        self.mock_client._send.assert_called_with(mock.ANY, {
+        self.mock_client._send.assert_called_once_with(mock.ANY, {
             'stopwatch.namespace.resource_list.GET.200': '1000|ms'
         })
+
+    def test_process_response_norequest(self):
+        with mock.patch('time.time') as time_time:
+            time_time.return_value = 2
+            self.mw.process_response(self.request, self.response)
+        self.assertFalse(self.mock_client._send.call_count)
+
+    def test_process_response_unresolved(self):
+        self.request._stopwatch_start = 1
+        delattr(self.request, 'resolver_match')
+        with mock.patch('time.time') as time_time:
+            time_time.return_value = 2
+            self.mw.process_response(self.request, self.response)
+        self.assertFalse(self.mock_client._send.call_count)

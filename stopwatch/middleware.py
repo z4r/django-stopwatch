@@ -1,5 +1,5 @@
 import time
-from stopwatch import loader
+from stopwatch import loader, errors
 
 
 class StopWatchMiddleware(object):
@@ -11,10 +11,12 @@ class StopWatchMiddleware(object):
         request._stopwatch_start = time.time()
 
     def process_response(self, request, response):
-        delta = time.time() - request._stopwatch_start
-        for backend in self.backends:
-            backend.push(
-                key=self.keybuilder.build(request, response),
-                delta=delta,
-            )
+        if getattr(request, '_stopwatch_start', None):
+            delta = time.time() - request._stopwatch_start
+            try:
+                key = self.keybuilder.build(request, response)
+                for backend in self.backends:
+                    backend.push(key=key, delta=delta)
+            except errors.KeyBuilderException:
+                pass
         return response

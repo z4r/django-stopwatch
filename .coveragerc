@@ -3,6 +3,7 @@ omit =
     *tests*
     *.egg/*
     *site-packages*
+    *__init__*
 
 [report]
 exclude_lines =

@@ -1,59 +1,18 @@
 from setuptools import setup, find_packages
-import sys
 import os
 import multiprocessing, logging  # http://www.eby-sarna.com/pipermail/peak/2010-May/003348.html
-__author__ = "Andrea de Marco <andrea.demarco@buongiorno.com>"
-__version__ = '0.1'
-__classifiers__ = [
-    'Development Status :: 4 - Beta',
-    'Framework :: Django',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: GNU General Public License (GPL)',
-    'Operating System :: OS Independent',
-    'Topic :: Internet :: WWW/HTTP',
-    'Topic :: Software Development :: Libraries',
-]
-__copyright__ = "2013, %s " % __author__
-__license__ = """
-   Copyright (C) %s
 
-      This program is free software: you can redistribute it and/or modify
-      it under the terms of the GNU General Public License as published by
-      the Free Software Foundation, either version 3 of the License, or
-      (at your option) any later version.
-
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU General Public License for more details.
-
-      You should have received a copy of the GNU General Public License
-      along with this program.  If not, see <http://www.gnu.org/licenses/>.
-""" % __copyright__
-
-__docformat__ = 'restructuredtext en'
-
-__doc__ = """
-:abstract: STOPWATCH: Statistics for API
-:version: %s
-:author: %s
-:copyright: %s
-""" % (__version__, __author__, __license__)
-
-
-wd = os.path.dirname(os.path.abspath(__file__))
-os.chdir(wd)
-sys.path.insert(1, wd)
-
+localdir = os.path.dirname(os.path.abspath(__file__))
 name = 'django-stopwatch'
+pkg = __import__('stopwatch')
 
-author, email = __author__.rsplit(' ', 1)
+author, email = pkg.__author__.rsplit(' ', 1)
 email = email.strip('<>')
 
-version = __version__
-classifiers = __classifiers__
+version = pkg.__version__
+classifiers = pkg.__classifiers__
 
-readme = open(os.path.join(wd, 'README.rst'), 'r').readlines()
+readme = open(os.path.join(localdir, 'README.rst'), 'r').readlines()
 description = readme[1]
 long_description = ''.join(readme)
 

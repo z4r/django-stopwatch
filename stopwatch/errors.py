@@ -1,0 +1,2 @@
+class KeyBuilderException(Exception):
+    pass
